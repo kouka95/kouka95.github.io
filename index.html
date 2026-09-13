@@ -1,0 +1,1042 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+:root {
+    --brown: #5a3528;
+    --brown-dark: #3b2119;
+    --pink: #e9a9b8;
+    --pink-light: #fff1f4;
+    --cream: #fffaf7;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(233,169,184,.35), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(90,53,40,.18), transparent 30%),
+        var(--pink-light);
+    color: var(--brown);
+    overflow: hidden;
+}
+
+/* -----------------------------
+   APP
+----------------------------- */
+
+#app {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(40px) scale(.98);
+    transition:
+        opacity .55s ease,
+        transform .55s cubic-bezier(.22,.61,.36,1),
+        visibility .55s;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+.card {
+    width: min(680px, 94vw);
+    min-height: 480px;
+    max-height: 88vh;
+    padding: clamp(35px, 7vw, 70px);
+    background: rgba(255,250,247,.92);
+    border: 1px solid rgba(90,53,40,.1);
+    border-radius: 35px;
+    box-shadow:
+        0 25px 80px rgba(90,53,40,.16),
+        0 5px 20px rgba(90,53,40,.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(233,169,184,.18);
+    top: -80px;
+    right: -60px;
+}
+
+.card::after {
+    content: "♡";
+    position: absolute;
+    font-size: 180px;
+    opacity: .035;
+    bottom: -75px;
+    left: -25px;
+    font-family: serif;
+}
+
+/* -----------------------------
+   TYPOGRAPHY
+----------------------------- */
+
+.kicker {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: .55;
+    margin-bottom: 18px;
+}
+
+h1, h2 {
+    font-family: "Playfair Display", serif;
+    color: var(--brown-dark);
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: clamp(38px, 8vw, 64px);
+    margin: 0 0 25px;
+}
+
+h2 {
+    font-size: clamp(30px, 6vw, 48px);
+    margin: 0 0 25px;
+}
+
+p {
+    font-size: clamp(17px, 3vw, 21px);
+    line-height: 1.75;
+    margin: 10px 0;
+}
+
+.highlight {
+    color: #b85f79;
+}
+
+.small {
+    font-size: 14px;
+    opacity: .65;
+}
+
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
+
+.nav {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 20;
+}
+
+button {
+    font-family: inherit;
+    border: 0;
+    cursor: pointer;
+}
+
+.nav-btn,
+.yes-btn,
+.no-btn,
+.send-btn {
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.continue {
+    background: var(--brown);
+    color: white;
+}
+
+.continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(90,53,40,.25);
+}
+
+.back {
+    background: rgba(90,53,40,.08);
+    color: var(--brown);
+}
+
+.back:hover {
+    background: rgba(90,53,40,.15);
+}
+
+/* -----------------------------
+   DECORATION
+----------------------------- */
+
+.floating-heart {
+    position: fixed;
+    pointer-events: none;
+    font-size: 20px;
+    animation: floatHeart 5s linear forwards;
+    z-index: 100;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(.7) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .8;
+    }
+
+    100% {
+        transform: translateY(-110vh) scale(1.4) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+/* -----------------------------
+   SLIDE 10
+----------------------------- */
+
+.question-card {
+    overflow: visible;
+}
+
+.choice-area {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    margin-top: 25px;
+}
+
+.yes-btn,
+.no-btn {
+    position: absolute;
+    top: 65px;
+    font-weight: 600;
+}
+
+.yes-btn {
+    left: 50%;
+    transform: translateX(-115%);
+    background: #b85f79;
+    color: white;
+    box-shadow: 0 8px 25px rgba(184,95,121,.25);
+    z-index: 5;
+}
+
+.no-btn {
+    left: 50%;
+    transform: translateX(15%);
+    background: rgba(90,53,40,.1);
+    color: var(--brown);
+    z-index: 10;
+}
+
+.attempts {
+    font-size: 13px;
+    opacity: .45;
+    margin-top: 15px;
+}
+
+/* -----------------------------
+   SLIDE 11 FORM
+----------------------------- */
+
+.message-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 130px;
+    resize: none;
+    border: 1px solid rgba(90,53,40,.18);
+    border-radius: 20px;
+    padding: 18px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+    background: white;
+    color: var(--brown);
+}
+
+textarea:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 4px rgba(233,169,184,.15);
+}
+
+.send-btn {
+    background: var(--brown);
+    color: white;
+    align-self: center;
+}
+
+.send-btn:hover {
+    transform: translateY(-2px);
+}
+
+.form-status {
+    font-size: 14px;
+    min-height: 20px;
+}
+
+/* -----------------------------
+   SLIDE 12
+----------------------------- */
+
+.date {
+    font-size: clamp(45px, 10vw, 75px);
+    font-family: "Playfair Display", serif;
+    color: #b85f79;
+    margin: 15px 0;
+}
+
+.time {
+    display: inline-block;
+    background: var(--brown);
+    color: white;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 12px 0 20px;
+}
+
+/* -----------------------------
+   SLIDE 13
+----------------------------- */
+
+.final-card {
+    background:
+        radial-gradient(circle at 50% 50%, rgba(233,169,184,.25), transparent 55%),
+        rgba(255,250,247,.94);
+}
+
+.big-heart {
+    font-size: clamp(80px, 20vw, 150px);
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.13);
+    }
+}
+
+/* -----------------------------
+   MOBILE
+----------------------------- */
+
+@media (max-width: 600px) {
+    .card {
+        min-height: 520px;
+        padding: 35px 25px 80px;
+    }
+
+    .choice-area {
+        height: 220px;
+    }
+
+    .yes-btn {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 35px;
+    }
+
+    .no-btn {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 115px;
+    }
+
+    .nav {
+        bottom: 18px;
+    }
+
+    .nav-btn {
+        padding: 11px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+    <div class="card">
+        <div class="kicker">J'ai quelque chose à te dire</div>
+        <h1>Mais avant…</h1>
+        <p>
+            J'aimerais que tu prennes quelques minutes
+            pour aller jusqu'au bout.
+        </p>
+        <p class="small">Promis, ça ne sera pas un long discours… enfin j'espère. 😂</p>
+
+        <div class="nav">
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Quand j'y pense</div>
+        <h2>Nos sorties</h2>
+        <p>
+            On en a fait plusieurs.
+        </p>
+        <p>
+            Certaines étaient vraiment belles,
+            d'autres… disons qu'on aurait pu faire mieux. 😂
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Et pourtant</div>
+        <h2>On a beaucoup rigolé.</h2>
+        <p>
+            Et je crois que c'est ça que j'aime le plus.
+        </p>
+        <p>
+            Ces moments où on ne cherche pas forcément
+            à faire quelque chose d'extraordinaire…
+            mais où on finit quand même par beaucoup rire.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Et toi…</div>
+        <h2>J'apprécie ta compagnie.</h2>
+        <p>
+            Plus que je ne te le montre probablement.
+        </p>
+        <p>
+            J'aime discuter avec toi, rire avec toi,
+            simplement passer du temps avec toi.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Mais…</div>
+        <h2>On est quand même différents.</h2>
+        <p>
+            Moi, je suis plutôt du genre maladroit.
+        </p>
+        <p>
+            J'ai parfois envie de faire les choses
+            sans trop réfléchir aux conséquences.
+        </p>
+        <p>
+            Et toi… tu es beaucoup plus
+            <span class="highlight">« organisée »</span>.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Très organisée même 😏</div>
+        <h2>Un peu programmée, je dirais.</h2>
+        <p>
+            Tu aimes que les choses soient faites dans les règles,
+            que tout soit réfléchi, calculé…
+        </p>
+        <p>
+            Et parfois, je t'avoue que ça rend certaines choses
+            un peu trop sérieuses.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Mais au fond…</div>
+        <h2>J'aimerais t'apprendre quelque chose.</h2>
+        <p>
+            À te relâcher un peu.
+        </p>
+        <p>
+            À être parfois maladroite.
+            À faire quelque chose juste parce que
+            tu en as envie.
+        </p>
+        <p>
+            À ne pas toujours calculer ce qui pourrait arriver.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Et moi aussi…</div>
+        <h2>Je dois sortir de ma zone de confort.</h2>
+        <p>
+            Parce qu'il y a certaines choses
+            que je n'ai jamais vraiment osé te dire.
+        </p>
+        <p>
+            Alors cette fois,
+            je vais arrêter de trop réfléchir.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 9 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">La vérité</div>
+        <h2>Je te trouve belle.</h2>
+        <p>
+            J'aime ta compagnie.
+        </p>
+        <p>
+            J'aime nos moments,
+            même ceux qui ne se passent pas comme prévu.
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 10 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Et j'ai envie de plus</div>
+
+        <p>
+            J'ai envie de connaître une version
+            de nous un peu différente.
+        </p>
+
+        <p>
+            Une version où je pourrais marcher avec toi
+            main dans la main, sans trop réfléchir
+            à ce que les autres pensent.
+        </p>
+
+        <p>
+            Où je pourrais te prendre dans mes bras,
+            te couvrir de bisous…
+            et te voler quelques <strong>loooongs baisers.</strong> 😏😘
+        </p>
+
+        <p>
+            Alors, pour une fois, je vais être direct…
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+            <button class="nav-btn continue" onclick="nextSlide()">Continuer →</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 11 -->
+<section class="slide">
+    <div class="card question-card">
+        <div class="kicker">Dernière question</div>
+
+        <h2>
+            Est-ce que tu voudrais qu'on essaie,
+            toi et moi ?
+        </h2>
+
+        <p>
+            Qu'on soit en mode
+            <strong>Bonnie & Clyde ?</strong> ❤️
+        </p>
+
+        <div class="choice-area" id="choiceArea">
+
+            <button
+                class="yes-btn"
+                id="yesBtn"
+                onclick="sayYes()">
+                Oui ❤️
+            </button>
+
+            <button
+                class="no-btn"
+                id="noBtn">
+                Non 🙈
+            </button>
+
+        </div>
+
+        <div class="attempts" id="attempts">
+            Tu peux essayer… 😏
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 12 -->
+<section class="slide">
+    <div class="card">
+        <div class="kicker">Bon… maintenant que tu as dit oui ❤️</div>
+
+        <h2>Laisse-moi un petit mot.</h2>
+
+        <p>
+            J'aimerais savoir ce que tu penses.
+        </p>
+
+        <!--
+            IMPORTANT :
+            Remplace TON_FORM_ID par ton identifiant Formspree.
+        -->
+
+        <form
+            id="messageForm"
+            class="message-form"
+            action="https://formspree.io/f/TON_FORM_ID"
+            method="POST">
+
+            <input type="hidden" name="reponse" value="OUI ❤️">
+
+            <textarea
+                name="message"
+                placeholder="Écris-moi quelque chose… 💌"
+                required></textarea>
+
+            <button class="send-btn" type="submit">
+                Envoyer mon petit mot 💌
+            </button>
+
+            <div class="form-status" id="formStatus"></div>
+        </form>
+
+        <p class="small">
+            PS : Je sais… c'est nouveau,
+            au Mali ils savent pas encore comment faire ça 😂
+        </p>
+
+        <div class="nav">
+            <button class="nav-btn back" onclick="prevSlide()">← Retour</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 13 -->
+<section class="slide">
+    <div class="card final-card">
+        <div class="big-heart">❤️</div>
+
+        <div class="kicker">Alors c'est décidé.</div>
+
+        <div class="date">Vendredi.</div>
+
+        <p>
+            Mets ta plus belle robe. 👗
+        </p>
+
+        <p>
+            On va danser. 💃🏽
+        </p>
+
+        <div class="time">
+            22h45
+        </div>
+
+        <p>
+            Je viens te chercher.
+        </p>
+
+        <p>
+            Prépare-toi, Bonnie.<br>
+            Clyde arrive. 😏
+        </p>
+    </div>
+</section>
+
+</div>
+
+<script>
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+
+    if (index < 0) index = 0;
+    if (index >= slides.length) index = slides.length - 1;
+
+    slides[currentSlide].classList.remove("active");
+
+    currentSlide = index;
+
+    slides[currentSlide].classList.add("active");
+
+    createHearts(3);
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+
+/* ==========================================
+   PETITS CŒURS
+========================================== */
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "floating-heart";
+
+    const hearts = ["♡", "♥", "💕", "♡", "❤"];
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.bottom = "-30px";
+
+    heart.style.animationDuration =
+        (4 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 7500);
+}
+
+function createHearts(amount = 5) {
+
+    for (let i = 0; i < amount; i++) {
+
+        setTimeout(() => {
+            createHeart();
+        }, i * 180);
+    }
+}
+
+
+/* ==========================================
+   BOUTON NON
+========================================== */
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const choiceArea = document.getElementById("choiceArea");
+const attemptsText = document.getElementById("attempts");
+
+let attempts = 0;
+
+function moveNoButton() {
+
+    attempts++;
+
+    const areaRect =
+        choiceArea.getBoundingClientRect();
+
+    const buttonRect =
+        noBtn.getBoundingClientRect();
+
+    const maxX =
+        areaRect.width - buttonRect.width - 10;
+
+    const maxY =
+        areaRect.height - buttonRect.height - 10;
+
+    const x =
+        Math.max(5, Math.random() * maxX);
+
+    const y =
+        Math.max(5, Math.random() * maxY);
+
+    /*
+        On utilise left/top directement
+        et une transition fluide.
+    */
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.style.transform = "none";
+
+    /* Le bouton Oui devient progressivement plus gros */
+
+    const scale =
+        Math.min(1.45, 1 + attempts * 0.08);
+
+    yesBtn.style.transform =
+        `translateX(-115%) scale(${scale})`;
+
+    if (attempts === 1) {
+        attemptsText.textContent =
+            "Hmm… essaie encore 😏";
+    }
+
+    if (attempts === 2) {
+        attemptsText.textContent =
+            "Tu insistes vraiment ? 😂";
+    }
+
+    if (attempts === 3) {
+        attemptsText.textContent =
+            "Je t'avais prévenue… 😌";
+    }
+
+    if (attempts === 4) {
+        attemptsText.textContent =
+            "Encore une fois… 👀";
+    }
+
+    /*
+       Après 5 tentatives :
+       le bouton Non se place sous Oui.
+    */
+
+    if (attempts >= 5) {
+
+        noBtn.style.left = "50%";
+        noBtn.style.top = "130px";
+        noBtn.style.transform =
+            "translateX(-50%) scale(.75)";
+
+        noBtn.style.opacity = ".45";
+
+        yesBtn.style.transform =
+            "translateX(-115%) scale(1.5)";
+
+        attemptsText.textContent =
+            "Bon… je crois que le choix est assez clair maintenant. 😂❤️";
+
+        noBtn.style.pointerEvents = "none";
+    }
+}
+
+
+/*
+   Sur ordinateur : déplacement au survol.
+*/
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+
+/*
+   Sur téléphone : on réagit au toucher.
+*/
+
+noBtn.addEventListener("touchstart", function(e) {
+
+    e.preventDefault();
+
+    if (attempts < 5) {
+        moveNoButton();
+    }
+
+}, { passive: false });
+
+
+/* ==========================================
+   OUI
+========================================== */
+
+function sayYes() {
+
+    createHearts(25);
+
+    /*
+       Petit délai pour laisser
+       l'animation des cœurs commencer.
+    */
+
+    setTimeout(() => {
+
+        showSlide(11);
+
+    }, 600);
+}
+
+
+/* ==========================================
+   FORMULAIRE
+========================================== */
+
+const form =
+    document.getElementById("messageForm");
+
+const status =
+    document.getElementById("formStatus");
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    status.textContent =
+        "Envoi en cours… 💌";
+
+    const data =
+        new FormData(form);
+
+    try {
+
+        const response =
+            await fetch(form.action, {
+
+                method: "POST",
+
+                body: data,
+
+                headers: {
+                    "Accept": "application/json"
+                }
+
+            });
+
+        if (response.ok) {
+
+            status.textContent =
+                "Ton message est bien arrivé ❤️";
+
+            form.reset();
+
+            setTimeout(() => {
+                showSlide(12);
+                createHearts(15);
+            }, 1200);
+
+        } else {
+
+            status.textContent =
+                "Petit problème… réessaie dans quelques secondes.";
+
+        }
+
+    } catch (error) {
+
+        status.textContent =
+            "Impossible d'envoyer le message pour le moment.";
+
+    }
+
+});
+
+
+/* ==========================================
+   LANCEMENT
+========================================== */
+
+createHearts(5);
+
+</script>
+
+</body>
+</html>
+```
